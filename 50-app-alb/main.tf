@@ -8,6 +8,7 @@ module "alb" {
   subnets = local.private_subnet_ids
   create_security_group = false
   security_groups = [local.app_alb_sg_id]
+  enable_deletion_protection = false
   #security_groups = [local.app_alb_sg]
   tags = merge(
     var.common_tags,
@@ -33,6 +34,8 @@ resource "aws_lb_listener" "http" {
     } 
   }
 }
+
+
 
 resource "aws_route53_record" "app_alb" {
   zone_id = var.zone_id
