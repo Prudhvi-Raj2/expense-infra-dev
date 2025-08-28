@@ -54,6 +54,10 @@ resource "aws_ami_from_instance" "backend" {
 }
 
 resource "null_resource" "backend_delete" {
+  triggers = [
+    instance_id = aws_instance.backend.id
+  ]
+
   provisioner "local-exec" {
     command = "aws ec2 terminate-instances --instance-ids ${aws_instance.backend.id} "
   }
@@ -105,7 +109,7 @@ resource "aws_autoscaling_group" "backend" {
   health_check_type = "ELB"
   desired_capacity = 2
   
-  vpc_zone_identifier = [local.private_subnets_ids]
+  vpc_zone_identifier = local.private_subnets_ids
   launch_template {
     id = aws_launch_template.backend.id
     version = "$Latest"
