@@ -6,10 +6,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket         = "expense-dev-vpc-aug2025"
-    key            = "expense-dev-bastion-server-1" # you should have unique key, same cannot use in other repos
+    bucket         = "project1-expense-dev"
+    key            = "expense-dev-bastion" # you should have unique key, same cannot use in other repos
     region         = "us-east-1"
-    dynamodb_table = "expense-dev-vpc-aug2025"
+    dynamodb_table = "project1-expense-dev"
   }
 }
 
