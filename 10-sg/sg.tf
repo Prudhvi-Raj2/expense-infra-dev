@@ -121,6 +121,15 @@ resource "aws_security_group_rule" "vpn_1194" {
   security_group_id = module.vpn_sg.sg_id
 }
 
+resource "aws_security_group_rule" "frontend_ssh" {
+    type = "ingress"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    security_group_id = module.frontend_sg.sg_id
+  }
+
 resource "aws_security_group_rule" "app_alb_vpn" {
   type = "ingress"
   from_port = 80
@@ -155,6 +164,8 @@ resource "aws_security_group_rule" "mysql_bastion" {
   source_security_group_id = module.vpn_sg.sg_id
   security_group_id = module.backend_sg.sg_id
 }
+  
+
 
   resource "aws_security_group_rule" "backend_vpn_http" {
   type = "ingress"
@@ -211,7 +222,7 @@ resource "aws_security_group_rule" "frontend_web_alb" {
   source_security_group_id = module.web_alb_sg.sg_id
   security_group_id = module.frontend_sg.sg_id
 }
-#usually you should configure frontend using private ip from vpn only.
+#usually you should configure frontend using private ip from vpn only. 
 resource "aws_security_group_rule" "frontend_public" {
   type = "ingress"
   from_port = 80
