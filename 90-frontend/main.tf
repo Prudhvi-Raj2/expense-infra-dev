@@ -9,7 +9,7 @@ resource "aws_instance" "frontend" {
         Name = local.resource_name
         }
     )
-    user_data = file("frontend.sh")
+    # user_data = file("frontend.sh")
 }
 
 resource "null_resource" "frontend" {
@@ -158,7 +158,7 @@ resource "aws_lb_listener_rule" "frontend" {
     }
   }
 
-  depends_on = [aws_autoscaling_group.backend]
+  depends_on = [aws_autoscaling_group.frontend]
 
 }
 
