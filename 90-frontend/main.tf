@@ -59,7 +59,7 @@ resource "null_resource" "frontend_delete" {
 resource "aws_lb_target_group" "frontend" {
   name     = local.resource_name
   port     = 80
-  protocol = "HTTPS"
+  protocol = "HTTP"
   vpc_id   = local.vpc_id
   health_check {
     path                = "/"
@@ -67,6 +67,7 @@ resource "aws_lb_target_group" "frontend" {
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 2
+    port                = 80
     matcher             = "200-299"
   }
   tags = var.common_tags
