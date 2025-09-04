@@ -85,10 +85,12 @@ resource "aws_launch_template" "frontend" {
 
   tag_specifications {
     resource_type = "instance"
-    }
     tags ={
         Name = local.resource_name
+        Project = var.project_name
+        Environment = var.environment
         }
+    }
 }
 
 resource "aws_autoscaling_group" "frontend" {
